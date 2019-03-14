@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 08:58:10 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/14 17:12:28 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:03:47 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,17 @@ int		evt_live_mouse_clicked(int x, int y, int z, t_mlx *m)
 		else if (x == 7){
 			m->zoom -= 5;
 		}
+		ft_printf("zoom: %ld\n", m->zoom);
 	}
 	else
 	{
 		if (x == 5){
 			m->iteration_max += 5;
 		}
-		else if (x == 5){
+		else if (x == 4){
 			m->iteration_max -= 5;
 		}
+		ft_printf("iter: %ld\n", m->iteration_max);
 	}
 	process(m);
 	return (0);

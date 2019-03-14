@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/14 17:12:21 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:03:46 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,52 +33,71 @@ static void			put_legend(t_mlx *fractol)
 //
 
 
-void mandelbrot(t_mlx *fractal, long zoom, long iteration_max) {
-  double c_x, c_y , a, b, tmp;
-  int i, x, y;
 
-  //double abs_min = x_zoom - h;
- // double abs_max = x_zoom + h;
- // double ord_min = y_zoom - h;
- // double ord_max = y_zoom + h;
+void julia(t_mlx *fractal, long zoom, long iterations_max)
+{
+	double cY, cX;
+    cX = -0.7;
+    cY = 0.27015;
+    double moveX = 0, moveY = 0;
+    double zx, zy;
 
-  for(x = 0; x < DRAW_W; x++) {
-    for(y = 0; y < WIN_H; y++) {
-      /* Fractale de Mandelbrot : un peu de mathématique...
-     Zn+1 = Zn² + (x + iy)
-     Zo = 0
-     On colorie en noir si le module de Zn+1 ne tend pas vers +oo
+    for (int x = 0; x < DRAW_W; x++) {
+        for (int y = 0; y < WIN_H; y++) {
+            zx = 1.5 * (x - DRAW_W / 2) / (0.5 * zoom * DRAW_W) + moveX;
+            zy = (y - WIN_H / 2) / (0.5 * zoom * WIN_H) + moveY;
+            float i = 0;
+            while (zx * zx + zy * zy < 4 && i < iterations_max) {
+                double tmp = zx * zx - zy * zy + cX;
+                zy = 2.0 * zx * zy + cY;
+                zx = tmp;
+                i++;
+            }
 
-     On convertit la suite complexe en suite réelle :
-     Re: a = a² - b² + x
-     Im: b = 2ab + y
-     Ao = Bo = 0 */
-      a = 0;
-      b = 0;
-      i = 0;
-      c_x = ((double)x - 700 ) / zoom;
-      c_y = ((double)y-500) / zoom;
-      while((a*a + b*b) < 4.0 && i < iteration_max) {
-	    tmp = a;
-	    a = a*a - b*b + c_x;
-	    b = 2*tmp*b + c_y;
-	    i++;
-      }
-      if(i == iteration_max)
-	  	put_pixel_img(fractal, (t_point){x, y}, 0xFFFFFF);
-      else {
-	    if(i * 100 / iteration_max < 50)
-			put_pixel_img(fractal, (t_point){x, y}, rgb2dec(i*255/(iteration_max*0.75), 0, i*255/(iteration_max*0.75)));
-	    else
-			put_pixel_img(fractal, (t_point){x, y}, rgb2dec(255, i*255/iteration_max, 0));
-      }
+			if(i == iterations_max)
+				put_pixel_img(fractal, (t_point){x, y}, 0xFFFFFF);
+			else {
+				if(i * 100 / iterations_max < 50)
+					put_pixel_img(fractal, (t_point){x, y}, rgb2dec(i*255/(iterations_max*0.75), 0, i*255/(iterations_max*0.75)));
+				else
+					put_pixel_img(fractal, (t_point){x, y}, rgb2dec(255, i*255/iterations_max, 0));
+			}
+        }
     }
-  }
+}
+
+void mandelbrot(t_mlx *fractal, long zoom, long iteration_max) {
+	double c_x, c_y , a, b, tmp;
+	int i, x, y;
+	for(x = 0; x < DRAW_W; x++) {
+		for(y = 0; y < WIN_H; y++) {
+			a = 0;
+			b = 0;
+			i = 0;
+			c_x = ((double)x - 700) / zoom;
+			c_y = ((double)y- 500) / zoom;
+			while((a*a + b*b) < 4.0 && i < iteration_max) {
+				tmp = a;
+				a = a*a - b*b + c_x;
+				b = 2*tmp*b + c_y;
+				i++;
+			}
+			if(i == iteration_max)
+				put_pixel_img(fractal, (t_point){x, y}, 0xFFFFFF);
+			else {
+			if(i * 100 / iteration_max < 50)
+				put_pixel_img(fractal, (t_point){x, y}, rgb2dec(i*255/(iteration_max*0.75), 0, i*255/(iteration_max*0.75)));
+			else
+				put_pixel_img(fractal, (t_point){x, y}, rgb2dec(255, i*255/iteration_max, 0));
+			}
+		}
+	}
 }
 void	draw(t_mlx *fractol)
 {
 	//mandelbrot(t_mlx *fractal, long zoom, long iteration_max, double x_zoom, double y_zoom, double h)
-	mandelbrot(fractol, fractol->zoom, fractol->iteration_max);
+	//mandelbrot(fractol, fractol->zoom, fractol->iteration_max);
+	julia(fractol, fractol->zoom, fractol->iteration_max);
 	// int MAX_ITER;
 	// double zx;
 	// double zy;
@@ -153,10 +172,7 @@ static inline void	init_variables(t_mlx *fractol)
 {
 	fractol->img = NULL;
 	fractol->zoom = 10;
-	fractol->x_zoom = -30.0;
-	fractol->y_zoom = -30.0;
-	fractol->iteration_max = 20;
-	fractol->h = 20;
+	fractol->iteration_max = 100;
 	fractol->is_border = 0;
 	fractol->is_shift = 0;
 	fractol->is_pressed = 0;
