@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 08:58:10 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/14 18:03:47 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:53:58 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int		evt_live_mouse_clicked(int x, int y, int z, t_mlx *m)
 	if (m->is_shift)
 	{
 		if (x == 6){
-			m->zoom += 5;
+			m->zoom += 1;
 		}
 		else if (x == 7){
-			m->zoom -= 5;
+			m->zoom -= 1;
 		}
 		ft_printf("zoom: %ld\n", m->zoom);
 	}

@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/14 18:03:49 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:53:59 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <fcntl.h>
 # define WIN_W 1500
 # define WIN_H  1000
+# define ORIGINALJULIAX -0.7f
+# define ORIGINALJULIAY 0.27015f
 # define DRAW_W WIN_W - 500
 # define KPRESS 2
 # define KCLICK	3

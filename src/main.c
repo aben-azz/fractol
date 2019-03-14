@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/14 18:03:46 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:25:45 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,77 @@ static void			put_legend(t_mlx *fractol)
 void julia(t_mlx *fractal, long zoom, long iterations_max)
 {
 	double cY, cX;
-    cX = -0.7;
-    cY = 0.27015;
-    double moveX = 0, moveY = 0;
-    double zx, zy;
+	cX = ORIGINALJULIAX;
+	cY = ORIGINALJULIAY;
+	double moveX = 0, moveY = 0;
+	double zx, zy;
 
-    for (int x = 0; x < DRAW_W; x++) {
-        for (int y = 0; y < WIN_H; y++) {
-            zx = 1.5 * (x - DRAW_W / 2) / (0.5 * zoom * DRAW_W) + moveX;
-            zy = (y - WIN_H / 2) / (0.5 * zoom * WIN_H) + moveY;
-            float i = 0;
-            while (zx * zx + zy * zy < 4 && i < iterations_max) {
-                double tmp = zx * zx - zy * zy + cX;
-                zy = 2.0 * zx * zy + cY;
-                zx = tmp;
-                i++;
-            }
-
-			if(i == iterations_max)
-				put_pixel_img(fractal, (t_point){x, y}, 0xFFFFFF);
-			else {
-				if(i * 100 / iterations_max < 50)
-					put_pixel_img(fractal, (t_point){x, y}, rgb2dec(i*255/(iterations_max*0.75), 0, i*255/(iterations_max*0.75)));
-				else
-					put_pixel_img(fractal, (t_point){x, y}, rgb2dec(255, i*255/iterations_max, 0));
+	for (int x = 0; x < DRAW_W; x++)
+	{
+		for (int y = 0; y < WIN_H; y++)
+		{
+			zx = 1.5 * (x - DRAW_W / 2) / (0.5 * zoom/2 * DRAW_W) + moveX;
+			zy = (y - WIN_H / 2) / (0.5 * zoom/2 * WIN_H) + moveY;
+			float i = 0;
+			while (zx * zx + zy * zy < 4 && i < iterations_max)
+			{
+				double tmp = zx * zx - zy * zy + cX;
+				zy = 2.0 * zx * zy + cY;
+				zx = tmp;
+				i++;
 			}
-        }
-    }
+			if (i == iterations_max)
+				put_pixel_img(fractal, (t_point){x, y}, 0xFFFFFF);
+			else
+			{
+				if (i * 100 / iterations_max < 50)
+					put_pixel_img(fractal, (t_point){x, y},
+						rgb2dec(i*255/(iterations_max*0.75), 0, i*255/(iterations_max*0.75)));
+				else
+					put_pixel_img(fractal, (t_point){x, y},
+						rgb2dec(255, i*255/iterations_max, 0));
+			}
+		}
+	}
+}
+void multijulia(t_mlx *fractal, long zoom, long iterations_max, int n)
+{
+	double cY, cX;
+	cX = ORIGINALJULIAX;
+	cY = ORIGINALJULIAY;
+	double moveX = 0, moveY = 0;
+	double zx, zy;
+
+	for (int x = 0; x < DRAW_W; x++)
+	{
+		for (int y = 0; y < WIN_H; y++)
+		{
+			zx = 1.5 * (x - DRAW_W / 2) / (0.5 * zoom/2 * DRAW_W) + moveX;
+			zy = (y - WIN_H / 2) / (0.5 * zoom/2 * WIN_H) + moveY;
+			float i = 0;
+			while (zx * zx + zy * zy < 4 && i < iterations_max)
+			{
+				double tmp = ft_pow((zx * zx + zy * zy), (n / 2)) * cos(n * atan2(zy, zx)) + cX;
+			    zy = ft_pow((zx * zx + zy * zy), (n / 2)) * sin(n * atan2(zy, zx)) + cY;
+			    zx = tmp;
+				// double tmp = zx * zx - zy * zy + cX;
+				// zy = 2.0 * zx * zy + cY;
+				// zx = tmp;
+				i++;
+			}
+			if (i == iterations_max)
+				put_pixel_img(fractal, (t_point){x, y}, 0xFFFFFF);
+			else
+			{
+				if (i * 100 / iterations_max < 50)
+					put_pixel_img(fractal, (t_point){x, y},
+						rgb2dec(i*255/(iterations_max*0.75), 0, i*255/(iterations_max*0.75)));
+				else
+					put_pixel_img(fractal, (t_point){x, y},
+						rgb2dec(255, i*255/iterations_max, 0));
+			}
+		}
+	}
 }
 
 void mandelbrot(t_mlx *fractal, long zoom, long iteration_max) {
@@ -95,48 +139,10 @@ void mandelbrot(t_mlx *fractal, long zoom, long iteration_max) {
 }
 void	draw(t_mlx *fractol)
 {
-	//mandelbrot(t_mlx *fractal, long zoom, long iteration_max, double x_zoom, double y_zoom, double h)
 	//mandelbrot(fractol, fractol->zoom, fractol->iteration_max);
 	julia(fractol, fractol->zoom, fractol->iteration_max);
-	// int MAX_ITER;
-	// double zx;
-	// double zy;
-	// double cX;
-	// double cY;
-	// double tmp;
-	// int y;
-	// int x;
-	// int iter;
-	//
-	// MAX_ITER = 1000;
-	// y = 0;
-	// while (y < WIN_H)
-	// {
-	// 	x = 0;
-	// 	while (x < DRAW_W)
-	// 	{
-	// 		zx = 0.0;
-	// 		zy = 0.0;
-	// 		cX = (x - 700) / fractol->zoom;
-	// 		cY = (y - 500) / fractol->zoom;
-	// 		iter = MAX_ITER;
-	//
-	//
-	// 		while (zx * zx + zy * zy < 4 && iter > 0)
-	// 		{
-	// 			tmp = zx * zx - zy * zy + cX;
-	// 			zy = 2.0 * zx * zy + cY;
-	// 			zx = tmp;
-	// 			iter--;
-	// 		}
-	// 		if (iter)
-	// 			put_pixel_img(fractol, (t_point){x, y}, 0xFFFFFF);
-	// 		else
-	// 			put_pixel_img(fractol, (t_point){x, y}, 0x000000);
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
+	//multijulia(fractol, fractol->zoom, fractol->iteration_max, 1);
+
 }
 
 void				process(t_mlx *fractol)
@@ -172,7 +178,7 @@ static inline void	init_variables(t_mlx *fractol)
 {
 	fractol->img = NULL;
 	fractol->zoom = 10;
-	fractol->iteration_max = 100;
+	fractol->iteration_max = 245;
 	fractol->is_border = 0;
 	fractol->is_shift = 0;
 	fractol->is_pressed = 0;

@@ -6,7 +6,7 @@
 #    By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/03 09:24:41 by aben-azz          #+#    #+#              #
-#    Updated: 2019/03/13 17:33:30 by aben-azz         ###   ########.fr        #
+#    Updated: 2019/03/14 18:53:58 by aben-azz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ $(NAME): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ)
 		@printf "$(_BOLD)$(_RED)Executable ./fractol pret \n$(_END)$(_CYAN)$(_END)"
 
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c includes/fractol.h
 		@mkdir -p $(OBJ_PATH) 2> /dev/null || true
 		@$(CC) $(C_FLAGS) $(INC) -o $@ -c $<
 		@printf "$(_BOLD)$(_PURPLE)$(MSG)$(_END) $(_CYAN)%-$(LONGEST)s\
