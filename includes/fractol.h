@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/13 17:30:26 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/14 17:12:29 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
-# define WIN_W 2000
+# define WIN_W 1500
 # define WIN_H  1000
 # define DRAW_W WIN_W - 500
 # define KPRESS 2
@@ -61,7 +61,6 @@ typedef struct	s_point
 {
 	int				x;
 	int				y;
-	int				color;
 }				t_point;
 typedef struct	s_points
 {
@@ -74,7 +73,11 @@ typedef struct	s_mlx
 	void			*win;
 	t_image			*img;
 	t_map			*map;
-	int				zoom;
+	long			zoom;
+	long			iteration_max;
+	double			x_zoom;
+	double			y_zoom;
+	double			h;
 	int				is_pressed;
 	int				is_shift;
 	int				is_border;
@@ -89,4 +92,5 @@ int				evt_live_key_released(int key, t_mlx *m);
 int				fdf(void);
 void			draw(t_mlx *m);
 void			process(t_mlx *fdf);
+t_point			put_pixel_img(t_mlx *fdf, t_point p, int clr);
 #endif
