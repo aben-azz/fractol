@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/16 19:55:32 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:54:46 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ typedef struct	s_point
 }				t_point;
 typedef struct	s_dpoint
 {
-	double				x;
-	double				y;
+	long double				x;
+	long double				y;
 }				t_dpoint;
 typedef struct	s_points
 {
@@ -108,4 +108,5 @@ t_point			put_pixel_img(t_mlx *fdf, t_point p, int clr);
 void			*draw_julia(void *data);
 void			*draw_mandelbrot(void *data);
 unsigned int	get_thread(pthread_t id, pthread_t *threads);
+int				error(char error, t_mlx *fractol, char mode);
 #endif

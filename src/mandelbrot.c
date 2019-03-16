@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/16 19:55:37 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:10:59 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ t_mlx *fractol)
 	{
 		tmp = z_r;
 		z_r = z_r * z_r - z_i * z_i + c_r;
-		// if (fractol->fractale == 3)
-		// 	z_i = 2 * fabsl(z_i * tmp) + c_i;
-		// else
-			z_i = 2 * z_i * tmp + c_i;
+		z_i = 2 * z_i * tmp + c_i;
 		++i;
 	}
 	if (i == fractol->iteration_max)
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]}, rgb2dec(i*255/(fractol->iteration_max*0.75), 0, i*255/(fractol->iteration_max*0.75)));
+		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
+			rgb2dec(i * 255 / (fractol->iteration_max * 0.75), 0,
+				i * 255 / (fractol->iteration_max * 0.75)));
 	else
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]}, rgb2dec(255, i*255/fractol->iteration_max, 0));
+		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
+			rgb2dec(255, i * 255 / fractol->iteration_max, 0));
 }
 
 static void	calc_mandelbrot(long double *xy, long double image_x, \
