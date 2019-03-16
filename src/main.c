@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/16 20:54:49 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/16 21:01:02 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ unsigned int	get_thread(pthread_t id, pthread_t *threads)
 static inline void	init_variables(t_mlx *fractol)
 {
 	fractol->img = NULL;
-	fractol->zoom = 100;
+	fractol->zoom = 200;
 	fractol->iteration_max = 50;
 	fractol->is_border = 0;
 	fractol->is_shift = 0;
@@ -97,8 +97,8 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->type = 0;
 	fractol->x.x = -2.9999;
 	fractol->x.y = -2.9999;
-	fractol->y.x = 5;
-	fractol->y.y = 10;
+	fractol->y.x = 200;
+	fractol->y.y = 100;
 	fractol->julia_var = 0.285;
 }
 
@@ -128,7 +128,6 @@ int error(char err, t_mlx *fractol, char mode)
 		editez la macro THREADS sur includes/fractol.h (ligne.18)\n");
 	else if (err == 1)
 	{
-
 		fractol->type = max((unsigned int)(&fractol->mlx) / 200 % 1, 0);
 		ft_printf("Attention:\tNombre d'argument invalide\n \
 		Une fractale aleatoire a ete choisie au hasard\n");
