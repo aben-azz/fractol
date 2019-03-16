@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/14 18:25:45 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/16 19:55:44 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,40 +110,49 @@ void multijulia(t_mlx *fractal, long zoom, long iterations_max, int n)
 	}
 }
 
-void mandelbrot(t_mlx *fractal, long zoom, long iteration_max) {
+void mandelbrot(t_mlx *fractal) {
 	double c_x, c_y , a, b, tmp;
 	int i, x, y;
 	for(x = 0; x < DRAW_W; x++) {
+
 		for(y = 0; y < WIN_H; y++) {
 			a = 0;
 			b = 0;
 			i = 0;
-			c_x = ((double)x - 700) / zoom;
-			c_y = ((double)y- 500) / zoom;
-			while((a*a + b*b) < 4.0 && i < iteration_max) {
+			c_x = ((double)x - 700) / fractal->zoom;
+			c_y = ((double)y- 500) / fractal->zoom;
+			while((a*a + b*b) < 4.0 && i < fractal->iteration_max) {
 				tmp = a;
 				a = a*a - b*b + c_x;
 				b = 2*tmp*b + c_y;
 				i++;
 			}
-			if(i == iteration_max)
+			if(i == fractal->iteration_max)
 				put_pixel_img(fractal, (t_point){x, y}, 0xFFFFFF);
 			else {
-			if(i * 100 / iteration_max < 50)
-				put_pixel_img(fractal, (t_point){x, y}, rgb2dec(i*255/(iteration_max*0.75), 0, i*255/(iteration_max*0.75)));
+			if(i * 100 / fractal->iteration_max < 50)
+				put_pixel_img(fractal, (t_point){x, y}, rgb2dec(i*255/(fractal->iteration_max*0.75), 0, i*255/(fractal->iteration_max*0.75)));
 			else
-				put_pixel_img(fractal, (t_point){x, y}, rgb2dec(255, i*255/iteration_max, 0));
+				put_pixel_img(fractal, (t_point){x, y}, rgb2dec(255, i*255/fractal->iteration_max, 0));
 			}
 		}
 	}
 }
-void	draw(t_mlx *fractol)
-{
-	//mandelbrot(fractol, fractol->zoom, fractol->iteration_max);
-	julia(fractol, fractol->zoom, fractol->iteration_max);
-	//multijulia(fractol, fractol->zoom, fractol->iteration_max, 1);
 
+void			draw_fractal(t_mlx *fractol)
+{
+	int		i;
+
+	i = -1;
+	//fractol->get_thread = -1;
+	while (++i < THREADS)
+		pthread_create(&fractol->thread[i], NULL, fractol->fract[fractol->type], fractol);
+	i = -1;
+	while (++i < THREADS)
+		pthread_join(fractol->thread[i], NULL);
+	mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img->ptr, 0, 0);
 }
+
 
 void				process(t_mlx *fractol)
 {
@@ -157,8 +166,8 @@ void				process(t_mlx *fractol)
 	fractol->img->data = mlx_get_data_addr(fractol->img->ptr,
 			&fractol->img->bpp, &fractol->img->sizeline, &fractol->img->endian);
 	fractol->img->bpp /= 8;
-	draw(fractol);
-	mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img->ptr, 0, 0);
+	//draw(fractol);
+	draw_fractal(fractol);
 	put_legend(fractol);
 }
 
@@ -174,14 +183,31 @@ t_point				put_pixel_img(t_mlx *fractol, t_point p, int clr)
 	return (p);
 }
 
+unsigned int	get_thread(pthread_t id, pthread_t *threads)
+{
+	int	i;
+
+	i = -1;
+	while (++i < THREADS && !pthread_equal(id, threads[i]))
+		;
+	return (i);
+}
 static inline void	init_variables(t_mlx *fractol)
 {
 	fractol->img = NULL;
-	fractol->zoom = 10;
-	fractol->iteration_max = 245;
+	fractol->zoom = 100;
+	fractol->iteration_max = 50;
 	fractol->is_border = 0;
 	fractol->is_shift = 0;
 	fractol->is_pressed = 0;
+	fractol->fract[0] = &draw_julia;
+	fractol->fract[1] = &draw_mandelbrot;
+	fractol->type = 1;
+	fractol->x.x = -2.9999;
+	fractol->x.y = -2.9999;
+	fractol->y.x = 5;
+	fractol->y.y = 10;
+	fractol->julia_var = 0.285;
 }
 
 static t_mlx inline	*init(void)

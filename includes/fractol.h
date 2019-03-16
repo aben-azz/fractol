@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/14 18:53:59 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/16 19:55:32 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
+# include <pthread.h>
 # define WIN_W 1500
 # define WIN_H  1000
 # define ORIGINALJULIAX -0.7f
@@ -39,6 +40,7 @@
 # define WHEELCLICK 3
 # define RIGHTCLICK 2
 # define LEFTCLICK 2
+# define THREADS 4
 
 # define SHOW_LIVE_MOUSE 0
 # define SHOW_LIVE_KEY 0
@@ -64,6 +66,11 @@ typedef struct	s_point
 	int				x;
 	int				y;
 }				t_point;
+typedef struct	s_dpoint
+{
+	double				x;
+	double				y;
+}				t_dpoint;
 typedef struct	s_points
 {
 	t_point			p1;
@@ -75,14 +82,17 @@ typedef struct	s_mlx
 	void			*win;
 	t_image			*img;
 	t_map			*map;
-	long			zoom;
-	long			iteration_max;
-	double			x_zoom;
-	double			y_zoom;
-	double			h;
+	long double			zoom;
+	long double			iteration_max;
+	pthread_t		thread[THREADS];
+	void			*(*fract[4]) (void *);
 	int				is_pressed;
 	int				is_shift;
 	int				is_border;
+	int				type;
+	t_dpoint			x;
+	t_dpoint			y;
+	long double			julia_var;
 }				t_mlx;
 t_map			*create_map(int fd);
 int				evt_live_mouse_clicked(int x, int y, int z, t_mlx *m);
@@ -92,7 +102,10 @@ int				evt_live_mouse_move(int x, int y, t_mlx *m);
 int				evt_live_mouse_pressed(int x, int y, int z, t_mlx *m);
 int				evt_live_key_released(int key, t_mlx *m);
 int				fdf(void);
-void			draw(t_mlx *m);
+void			*draw(void *m);
 void			process(t_mlx *fdf);
 t_point			put_pixel_img(t_mlx *fdf, t_point p, int clr);
+void			*draw_julia(void *data);
+void			*draw_mandelbrot(void *data);
+unsigned int	get_thread(pthread_t id, pthread_t *threads);
 #endif
