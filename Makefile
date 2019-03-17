@@ -6,7 +6,7 @@
 #    By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/03 09:24:41 by aben-azz          #+#    #+#              #
-#    Updated: 2019/03/17 16:17:30 by aben-azz         ###   ########.fr        #
+#    Updated: 2019/03/17 16:42:41 by aben-azz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ LFT_PATH = ./libft/
 INC_PATH = ./
 SRC_PATH = ./src/
 
-SRC_NAME = main.c events.c julia.c mandelbrot.c multibrot.c multijulia.c
+SRC_NAME = main.c events.c julia.c mandelbrot.c multibrot.c multijulia.c \
+			burningship.c tricorn.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))

@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 16:32:24 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 16:41:58 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->fract[3] = &draw_multibrot;
 	fractol->fract[4] = &draw_tricorn;
 	fractol->fract[5] = &draw_bship;
-	fractol->multijulia = 2;
-	fractol->multibrot = 2;
 	fractol->x.x = -2.9999;
 	fractol->x.y = -2.9999;
 	fractol->y.x = 5;
@@ -126,6 +124,32 @@ int error(char err, t_mlx *fractol, char mode)
 	(err == 2 || !err) ? exit(1) : NULL;
 	return (0);
 }
+int select_fractal(int argc, char **argv, t_mlx *fractol)
+{
+	int type;
+
+	type = 0;
+	if (!ft_strcmp(argv[1], "julia"))
+		type = 0;
+	else if (!ft_strcmp(argv[1], "mandelbrot"))
+		type = 1;
+	else if (!ft_strcmp(argv[1], "multijulia"))
+		type = 2;
+	else if (!ft_strcmp(argv[1], "multibrot"))
+		type = 3;
+	else if (!ft_strcmp(argv[1], "tricorn"))
+		type = 4;
+	else if (!ft_strcmp(argv[1], "burningship"))
+		type = 5;
+	else
+		type = -1;
+	if ((type == 2 || type == 3) && argc > 2)
+		fractol->multi = ft_atoi(argv[2]);
+	else if ((type == 2 || type == 3) && argc == 2)
+		fractol->multi = max((unsigned int)(&fractol->mlx) / 200 % 20, 0);
+	~type || error(3, NULL, 0);
+	return (type);
+}
 int				main(int ac, char **av)
 {
 	t_mlx *fractol;
@@ -138,22 +162,7 @@ int				main(int ac, char **av)
 	else if (THREADS < 1)
 		error(2, NULL, 0);
 	else
-	{
-		if (!ft_strcmp(av[1], "julia"))
-			fractol->type = 0;
-		else if (!ft_strcmp(av[1], "mandelbrot"))
-			fractol->type = 1;
-		else if (!ft_strcmp(av[1], "multijulia"))
-			fractol->type = 2;
-		else if (!ft_strcmp(av[1], "multibrot"))
-			fractol->type = 3;
-		else if (!ft_strcmp(av[1], "tricorn"))
-			fractol->type = 4;
-		else if (!ft_strcmp(av[1], "burningship"))
-			fractol->type = 5;
-		else
-			error(3, NULL, 0);
-	}
+		fractol->type = select_fractal(ac, av, fractol);
 	process(fractol);
 	mlx_loop(fractol->mlx);
 	return (0);

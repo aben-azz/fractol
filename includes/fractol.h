@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 16:32:25 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 16:42:18 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct	s_mlx
 	long double		zoom;
 	long double		iteration_max;
 	pthread_t		thread[THREADS];
-	void			*(*fract[4]) (void *);
+	void			*(*fract[6]) (void *);
 	int				is_pressed;
 	int				is_shift;
 	int				is_border;
@@ -90,8 +90,7 @@ typedef struct	s_mlx
 	t_dpoint		x;
 	t_dpoint		y;
 	long double		julia_var;
-	int				multijulia;
-	int				multibrot;
+	int				multi;
 }				t_mlx;
 t_map			*create_map(int fd);
 int				evt_live_mouse_clicked(int x, int y, int z, t_mlx *m);
