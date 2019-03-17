@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:16:15 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:44:58 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ long double image_y, t_mlx *fractol)
 
 	zoom[0] = image_x / (xy[0] - fractol->x.x);
 	zoom[1] = image_y / (xy[1] - fractol->x.y);
-	padding = WIN_W / (THREADS ? THREADS : 1);
+	padding = DRAW_W / (THREADS ? THREADS : 1);
 	start = padding * get_thread(pthread_self(), (pthread_t *)fractol->thread);
 	coords[0] = start - 1;
-	while (++coords[0] < image_x && coords[0] <= WIN_W && \
+	while (++coords[0] < image_x && coords[0] <= DRAW_W && \
 		coords[0] < start + padding)
 	{
 		coords[1] = -1;

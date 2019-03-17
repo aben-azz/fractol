@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 08:58:10 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 18:40:15 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:42:41 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,21 @@ int		evt_live_key_released(int key, t_mlx *m)
 int		evt_live_mouse_clicked(int keycode, int x, int y, t_mlx *m)
 {
 	(void)x;
+	int a;
+
+	a = WIN_W - DRAW_W;
 	if ((keycode == 1 || keycode == 5) && y >= 0)
 	{
-		m->x.x += (((float)x - (WIN_W / 2)) / m->zoom);
+		m->x.x += (((float)x + ((-a) + (((-a)) / 2)) - (DRAW_W / 2)) / m->zoom);
 		m->x.y += (((float)y - (WIN_H / 2)) / m->zoom);
 		m->zoom *= 1.2;
 	}
 	else if ((keycode == 2 || keycode == 4) && y >= 0)
 	{
-		m->x.x += (((float)x - (WIN_W / 2)) / m->zoom);
+		m->x.x += (((float)x + ((-a) + (((-a)) / 2)) - (DRAW_W / 2)) / m->zoom);
 		m->x.y += (((float)y - (WIN_H / 2)) / m->zoom);
 		m->zoom *= 0.9;
 	}
-
-
 	process(m);
 	return (0);
 }

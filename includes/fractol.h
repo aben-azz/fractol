@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:20:44 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:42:40 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 # include <math.h>
 # include <fcntl.h>
 # include <pthread.h>
-# define WIN_W 600
-# define WIN_H  600
+# define WIN_W 2000
+# define WIN_H  1000
+# define DRAW_W  WIN_W - 500
 # define ORIGINALJULIAX -0.7f
 # define ORIGINALJULIAY 0.27015f
 # define KPRESS 2
