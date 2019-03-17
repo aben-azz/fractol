@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:44:58 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:59:48 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,8 @@ t_mlx *fractol)
 		zr = t;
 		++i;
 	}
-	if (i == fractol->iteration_max)
 		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			rgb2dec(i * 255 / (fractol->iteration_max * 0.75), 0,
-				i * 255 / (fractol->iteration_max * 0.75)));
-	else
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			rgb2dec(255, i * 255 / fractol->iteration_max, 0));
+			get(i, fractol->iteration_max));
 }
 
 static void	calc_multibrot(long double *xy, long double image_x, \

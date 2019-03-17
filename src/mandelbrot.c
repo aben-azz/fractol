@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:33:25 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 20:00:01 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@ t_mlx *fractol)
 		z_i = 2 * z_i * tmp + c_i;
 		++i;
 	}
-	if (i == fractol->iteration_max)
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			get(i, fractol->iteration_max));
-	else
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			get(i, fractol->iteration_max));
+	put_pixel_img(fractol, (t_point){coords[0], coords[1]},
+		get(i, fractol->iteration_max));
 }
 
 static void	calc_mandelbrot(long double *xy, long double image_x, \

@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:02:29 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:45:08 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:59:12 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@ static void	print_multijulia(long double c_r, t_point xy, t_mlx *fractol, int n)
 	i = 0;
 	while (i < fractol->iteration_max && z_r * z_r + z_i * z_i < 4)
 	{
-		tmp = pow((z_r * z_r + z_i * z_i), (n / 2)) * cos(n * atan2(z_i, z_r)) + c_r;
-		z_i = pow((z_r * z_r + z_i * z_i), (n / 2)) * sin(n * atan2(z_i, z_r)) + 0.01;
+		tmp = pow((z_r * z_r + z_i * z_i), (n / 2)) *
+			cos(n * atan2(z_i, z_r)) + c_r;
+		z_i = pow((z_r * z_r + z_i * z_i), (n / 2)) *
+			sin(n * atan2(z_i, z_r)) + 0.01;
 		z_r = tmp;
 		++i;
 		if (i == fractol->iteration_max)
 			put_pixel_img(fractol, (t_point){xy.x, xy.y},
-				rgb2dec(i * 255 / (fractol->iteration_max * 0.75), 0,
-					i * 255 / (fractol->iteration_max * 0.75)));
+				get(i, fractol->iteration_max));
 		else
 			put_pixel_img(fractol, (t_point){xy.x, xy.y},
-				rgb2dec(255, i * 255 / fractol->iteration_max, 0));
+				get(i, fractol->iteration_max));
 	}
 }
 
@@ -43,8 +44,8 @@ void		*draw_multijulia(void *data)
 	t_mlx		*fractol;
 	t_point		x;
 	t_dpoint	img;
-	int padding;
-	int start;
+	int			padding;
+	int			start;
 
 	fractol = (t_mlx *)data;
 	img = (t_dpoint){(fractol->y.x - fractol->x.x) * fractol->zoom,

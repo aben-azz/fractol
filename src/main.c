@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:42:40 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 20:01:10 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->fract[3] = &draw_multibrot;
 	fractol->fract[4] = &draw_tricorn;
 	fractol->fract[5] = &draw_bship;
-	fractol->x.x = -0.9999;
-	fractol->x.y = -0.9999;
+	fractol->x.x = -1.9999;
+	fractol->x.y = -1.9999;
 	fractol->y.x = 5;
 	fractol->y.y = 5;
 	fractol->julia_var = 0.285;
@@ -150,8 +150,8 @@ int		error(char err, t_mlx *fractol, char mode)
 	else
 	{
 		!mode ? ft_printf("Erreur:\tparametre incorrect") : 0;
-		ft_printf("\nListe des fractales:\n\t\t[0] julia\n\t\t[1] mandelbrot\n \
-		[2] tricorn \n\t\t[3] burningship\n");
+		ft_printf("\nListe des fractales:\n\t\tJulia\n\t\tMandelbrot\n \
+		Multibrot n \n\t\tMultijulia n \n\t\tTricorn \n\t\tBurningship\n");
 		!mode ? exit(1) : NULL;
 	}
 	(err == 2 || !err) ? exit(1) : NULL;

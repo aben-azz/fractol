@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:02:29 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:44:22 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:47:27 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void		*draw_julia(void *data)
 	t_mlx		*fractol;
 	t_point		x;
 	t_dpoint	img;
-	int padding;
-	int start;
+	int			padding;
+	int			start;
 
 	fractol = (t_mlx *)data;
 	img = (t_dpoint){(fractol->y.x - fractol->x.x) * fractol->zoom,
