@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:02:29 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 17:31:48 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:16:37 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		*draw_multijulia(void *data)
 	fractol = (t_mlx *)data;
 	img = (t_dpoint){(fractol->y.x - fractol->x.x) * fractol->zoom,
 		(fractol->y.y - fractol->x.y) * fractol->zoom};
-	padding = WIN_W / THREADS;
+	padding = WIN_W / (THREADS ? THREADS : 1);
 	start = padding * get_thread(pthread_self(), (pthread_t *)fractol->thread);
 	x.x = start - 1;
 	while (++x.x < img.x && x.x < WIN_W && x.x < start + padding && (x.y = -1))

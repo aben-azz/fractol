@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 18:28:29 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:20:44 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define WHEELCLICK 3
 # define RIGHTCLICK 2
 # define LEFTCLICK 2
-# define THREADS 64
+# define THREADS 32
 
 typedef struct	s_map
 {
@@ -110,4 +110,5 @@ void			*draw_bship(void *data);
 void			*draw_tricorn(void *data);
 unsigned int	get_thread(pthread_t id, pthread_t *threads);
 int				error(char error, t_mlx *fractol, char mode);
+int				get(int n, int iter_max);
 #endif

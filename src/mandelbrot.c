@@ -6,20 +6,11 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 17:50:00 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:25:37 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fractol.h"
-int get(int n, int iter_max) {
-	double t = (double)n/(double)iter_max;
-	// Use smooth polynomials for r, g, b
-	int r = (int)(9*(1-t)*t*t*t*255);
-	int g = (int)(15*(1-t)*(1-t)*t*t*255);
-	int b =  (int)(8.5*(1-t)*(1-t)*(1-t)*t*255);
-
-	return rgb2dec(r, g, b);
-}
 
 static void	print_mandelbrot(int *coords, long double c_r, long double c_i, \
 t_mlx *fractol)
@@ -57,7 +48,7 @@ long double image_y, t_mlx *fractol)
 
 	zoom[0] = image_x / (xy[0] - fractol->x.x);
 	zoom[1] = image_y / (xy[1] - fractol->x.y);
-	padding = WIN_W / THREADS;
+	padding = WIN_W / (THREADS ? THREADS : 1);
 	start = padding * get_thread(pthread_self(), (pthread_t *)fractol->thread);
 	coords[0] = start - 1;
 	while (++coords[0] < image_x && coords[0] <= WIN_W && \

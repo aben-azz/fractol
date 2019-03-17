@@ -6,23 +6,23 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:10:30 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:25:36 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fractol.h"
 
-void			draw_fractal(t_mlx *fractol)
+void			draw_fractal(t_mlx *m)
 {
 	int		i;
 
 	i = -1;
 	while (++i < THREADS)
-		pthread_create(&fractol->thread[i], NULL, fractol->fract[fractol->type], fractol);
+		pthread_create(&m->thread[i], NULL, m->fract[m->type], m);
 	i = -1;
 	while (++i < THREADS)
-		pthread_join(fractol->thread[i], NULL);
-	mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img->ptr, 0, 0);
+		pthread_join(m->thread[i], NULL);
+	mlx_put_image_to_window(m->mlx, m->win, m->img->ptr, 0, 0);
 }
 
 void				process(t_mlx *fractol)
@@ -51,6 +51,7 @@ t_point				put_pixel_img(t_mlx *fractol, t_point p, int clr)
 		*(int *)(fractol->img->data + offset) = color;
 	return (p);
 }
+
 int				mouse_position(int x, int y, void *param)
 {
 	t_mlx		*mlx;
@@ -65,6 +66,7 @@ int				mouse_position(int x, int y, void *param)
 	}
 	return (0);
 }
+
 unsigned int	get_thread(pthread_t id, pthread_t *threads)
 {
 	int	i;
@@ -166,18 +168,26 @@ int		select_fractal(int argc, char **argv, t_mlx *fractol)
 	return (type);
 }
 
-int				main(int ac, char **av)
+int		get(int n, int iter_max)
+{
+	double t;
+
+	t = (double)n / (double)iter_max;
+	return (rgb2dec((int)(9 * (1 - t) * t * t * t * 255),
+					(int)(15 * (1 - t) * (1 - t) * t * t * 255),
+					(int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255)));
+}
+
+int		main(int ac, char **av)
 {
 	t_mlx *fractol;
 
-	fractol = init();
-	ft_printf("rand: %d\n", (int)&write);
-	if (!fractol)
+	if (THREADS < 1)
+		error(2, NULL, 0);
+	if (!(fractol = init()))
 		error(0, NULL, 0);
 	else if (ac == 1)
 		error(1, fractol, 0);
-	else if (THREADS < 1)
-		error(2, NULL, 0);
 	else
 		fractol->type = select_fractal(ac, av, fractol);
 	process(fractol);
