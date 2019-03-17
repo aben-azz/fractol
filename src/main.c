@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 15:58:34 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 16:32:24 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,12 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->is_pressed = 0;
 	fractol->fract[0] = &draw_julia;
 	fractol->fract[1] = &draw_mandelbrot;
-	//fractol->type = 0;
+	fractol->fract[2] = &draw_multijulia;
+	fractol->fract[3] = &draw_multibrot;
+	fractol->fract[4] = &draw_tricorn;
+	fractol->fract[5] = &draw_bship;
+	fractol->multijulia = 2;
+	fractol->multibrot = 2;
 	fractol->x.x = -2.9999;
 	fractol->x.y = -2.9999;
 	fractol->y.x = 5;
@@ -138,10 +143,14 @@ int				main(int ac, char **av)
 			fractol->type = 0;
 		else if (!ft_strcmp(av[1], "mandelbrot"))
 			fractol->type = 1;
-		else if (!ft_strcmp(av[1], "tricorn"))
+		else if (!ft_strcmp(av[1], "multijulia"))
 			fractol->type = 2;
-		else if (!ft_strcmp(av[1], "burningship"))
+		else if (!ft_strcmp(av[1], "multibrot"))
 			fractol->type = 3;
+		else if (!ft_strcmp(av[1], "tricorn"))
+			fractol->type = 4;
+		else if (!ft_strcmp(av[1], "burningship"))
+			fractol->type = 5;
 		else
 			error(3, NULL, 0);
 	}

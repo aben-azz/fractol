@@ -6,12 +6,12 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 15:51:22 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 16:32:25 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 # include "mlx/mlx.h"
 # include "includes/custom.h"
 # include "libft/includes/libft.h"
@@ -79,17 +79,19 @@ typedef struct	s_mlx
 	void			*win;
 	t_image			*img;
 	t_map			*map;
-	long double			zoom;
-	long double			iteration_max;
+	long double		zoom;
+	long double		iteration_max;
 	pthread_t		thread[THREADS];
 	void			*(*fract[4]) (void *);
 	int				is_pressed;
 	int				is_shift;
 	int				is_border;
 	int				type;
-	t_dpoint			x;
-	t_dpoint			y;
-	long double			julia_var;
+	t_dpoint		x;
+	t_dpoint		y;
+	long double		julia_var;
+	int				multijulia;
+	int				multibrot;
 }				t_mlx;
 t_map			*create_map(int fd);
 int				evt_live_mouse_clicked(int x, int y, int z, t_mlx *m);
@@ -103,7 +105,11 @@ void			*draw(void *m);
 void			process(t_mlx *fdf);
 t_point			put_pixel_img(t_mlx *fdf, t_point p, int clr);
 void			*draw_julia(void *data);
+void			*draw_multijulia(void *data);
 void			*draw_mandelbrot(void *data);
+void			*draw_multibrot(void *data);
+void			*draw_bship(void *data);
+void			*draw_tricorn(void *data);
 unsigned int	get_thread(pthread_t id, pthread_t *threads);
 int				error(char error, t_mlx *fractol, char mode);
 #endif
