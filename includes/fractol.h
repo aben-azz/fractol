@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/16 20:57:22 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 15:51:22 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <math.h>
 # include <fcntl.h>
 # include <pthread.h>
-# define WIN_W 1200
-# define WIN_H  1000
+# define WIN_W 1100
+# define WIN_H  600
 # define ORIGINALJULIAX -0.7f
 # define ORIGINALJULIAY 0.27015f
 # define DRAW_W WIN_W - 500
@@ -40,7 +40,7 @@
 # define WHEELCLICK 3
 # define RIGHTCLICK 2
 # define LEFTCLICK 2
-# define THREADS 4
+# define THREADS 64
 
 typedef struct	s_map
 {
