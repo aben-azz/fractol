@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 18:40:13 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:10:30 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static t_mlx inline	*init(void)
 	return (fractol);
 }
 
-int error(char err, t_mlx *fractol, char mode)
+int		error(char err, t_mlx *fractol, char mode)
 {
 	if (!err)
 		ft_printf("Erreur:\terreur d'allocation\n\t Relancez le programme\n");
@@ -123,7 +123,7 @@ int error(char err, t_mlx *fractol, char mode)
 		editez la macro THREADS sur includes/fractol.h (ligne.18)\n");
 	else if (err == 1)
 	{
-		fractol->type = max((unsigned int)(&fractol->mlx) / 200 % 2, 0);
+		fractol->type = ft_rand(2);
 		ft_printf("Attention:\tNombre d'argument invalide\n \
 		Une fractale aleatoire a ete choisie au hasard\n");
 		error(3, NULL, 1);
@@ -138,7 +138,8 @@ int error(char err, t_mlx *fractol, char mode)
 	(err == 2 || !err) ? exit(1) : NULL;
 	return (0);
 }
-int select_fractal(int argc, char **argv, t_mlx *fractol)
+
+int		select_fractal(int argc, char **argv, t_mlx *fractol)
 {
 	int type;
 
@@ -160,15 +161,17 @@ int select_fractal(int argc, char **argv, t_mlx *fractol)
 	if ((type == 2 || type == 3) && argc > 2)
 		fractol->multi = ft_atoi(argv[2]);
 	else if ((type == 2 || type == 3) && argc == 2)
-		fractol->multi = max((unsigned int)(&fractol->mlx) / 200 % 20, 0);
+		fractol->multi = ft_rand(20);
 	~type || error(3, NULL, 0);
 	return (type);
 }
+
 int				main(int ac, char **av)
 {
 	t_mlx *fractol;
 
 	fractol = init();
+	ft_printf("rand: %d\n", (int)&write);
 	if (!fractol)
 		error(0, NULL, 0);
 	else if (ac == 1)
