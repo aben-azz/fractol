@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 08:58:10 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 15:34:15 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 18:40:15 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int		evt_live_key_pressed(int key, t_mlx *m)
 		m->x.y += 0.1;
 	else if (key == DOWN_KEY || key == S_KEY)
 		m->x.y -= 0.1;
+	else if (key == SP_KEY)
+		m->is_var = 1;
+	else if (key == 69)
+		m->iteration_max += 5;
+	else if (key == 78)
+		m->iteration_max -= 5;
+	//ft_printf("keycode: %d\n", key);
 	(void)m;
 	process(m);
 	return (0);
@@ -46,6 +53,8 @@ int		evt_live_key_released(int key, t_mlx *m)
 {
 	if (key == LSFT_KEY || key == RSFT_KEY)
 		m->is_shift = 0;
+	else if (key == SP_KEY)
+		m->is_var = 0;
 	(void)m;
 	//process(m);
 	return (0);
@@ -54,33 +63,20 @@ int		evt_live_key_released(int key, t_mlx *m)
 int		evt_live_mouse_clicked(int keycode, int x, int y, t_mlx *m)
 {
 	(void)x;
-	if ((keycode == 1) && y >= 0)
+	if ((keycode == 1 || keycode == 5) && y >= 0)
 	{
 		m->x.x += (((float)x - (WIN_W / 2)) / m->zoom);
 		m->x.y += (((float)y - (WIN_H / 2)) / m->zoom);
 		m->zoom *= 1.2;
 	}
-	else if ((keycode == 2) && y >= 0)
+	else if ((keycode == 2 || keycode == 4) && y >= 0)
 	{
 		m->x.x += (((float)x - (WIN_W / 2)) / m->zoom);
 		m->x.y += (((float)y - (WIN_H / 2)) / m->zoom);
 		m->zoom *= 0.9;
 	}
 
-	if (m->is_shift)
-	{
-		// if (x == 6)
-		// 	m->zoom += 50;
-		// else if (x == 7)
-		// 	m->zoom -= 50;
-	}
-	else
-	{
-		if (keycode == 4)
-			m->iteration_max += 5;
-		else if (keycode == 5)
-			m->iteration_max -= 5;
-	}
+
 	process(m);
 	return (0);
 }

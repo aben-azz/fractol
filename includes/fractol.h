@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 16:42:18 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 18:28:29 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@
 # include <math.h>
 # include <fcntl.h>
 # include <pthread.h>
-# define WIN_W 1100
+# define WIN_W 600
 # define WIN_H  600
 # define ORIGINALJULIAX -0.7f
 # define ORIGINALJULIAY 0.27015f
-# define DRAW_W WIN_W - 500
 # define KPRESS 2
 # define KCLICK	3
 # define MCLICK	4
@@ -85,7 +84,7 @@ typedef struct	s_mlx
 	void			*(*fract[6]) (void *);
 	int				is_pressed;
 	int				is_shift;
-	int				is_border;
+	int				is_var;
 	int				type;
 	t_dpoint		x;
 	t_dpoint		y;

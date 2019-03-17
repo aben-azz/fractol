@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 16:41:58 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 18:40:13 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,24 @@ t_point				put_pixel_img(t_mlx *fractol, t_point p, int clr)
 
 	offset = ((p.x + p.y * WIN_W) * fractol->img->bpp);
 	color = mlx_get_color_value(fractol->mlx, clr);
-	if (fractol->is_border || (p.x < WIN_W && p.x > 0 && p.y < WIN_H && p.y > 0))
+	if ((p.x < WIN_W && p.x > 0 && p.y < WIN_H && p.y > 0))
 		*(int *)(fractol->img->data + offset) = color;
 	return (p);
 }
+int				mouse_position(int x, int y, void *param)
+{
+	t_mlx		*mlx;
 
+	mlx = (t_mlx *)param;
+	if (x < WIN_W && x > 0 && mlx->is_var)
+	{
+		if (y < WIN_H && y > 0)
+		{
+			mlx->julia_var = (((float)x / 2 * (float)y / 2) / 1000);
+		}
+	}
+	return (0);
+}
 unsigned int	get_thread(pthread_t id, pthread_t *threads)
 {
 	int	i;
@@ -65,9 +78,8 @@ unsigned int	get_thread(pthread_t id, pthread_t *threads)
 static inline void	init_variables(t_mlx *fractol)
 {
 	fractol->img = NULL;
-	fractol->zoom = 100.0;
+	fractol->zoom = 300.0;
 	fractol->iteration_max = 50;
-	fractol->is_border = 0;
 	fractol->is_shift = 0;
 	fractol->is_pressed = 0;
 	fractol->fract[0] = &draw_julia;
@@ -76,8 +88,8 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->fract[3] = &draw_multibrot;
 	fractol->fract[4] = &draw_tricorn;
 	fractol->fract[5] = &draw_bship;
-	fractol->x.x = -2.9999;
-	fractol->x.y = -2.9999;
+	fractol->x.x = -0.9999;
+	fractol->x.y = -0.9999;
 	fractol->y.x = 5;
 	fractol->y.y = 5;
 	fractol->julia_var = 0.285;
@@ -96,6 +108,8 @@ static t_mlx inline	*init(void)
 	mlx_hook(fractol->win, MCLICK, 0, evt_live_mouse_clicked, fractol);
 	mlx_hook(fractol->win, MPRESS, 0, evt_live_mouse_pressed, fractol);
 	mlx_hook(fractol->win, KEYRELEASE, 0, evt_live_key_released, fractol);
+	if (fractol->type == 0)
+		mlx_hook(fractol->win, 6, (1L << 6), mouse_position, fractol);
 	init_variables(fractol);
 	return (fractol);
 }

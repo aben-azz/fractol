@@ -6,11 +6,20 @@
 /*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 15:50:03 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/03/17 17:50:00 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fractol.h"
+int get(int n, int iter_max) {
+	double t = (double)n/(double)iter_max;
+	// Use smooth polynomials for r, g, b
+	int r = (int)(9*(1-t)*t*t*t*255);
+	int g = (int)(15*(1-t)*(1-t)*t*t*255);
+	int b =  (int)(8.5*(1-t)*(1-t)*(1-t)*t*255);
+
+	return rgb2dec(r, g, b);
+}
 
 static void	print_mandelbrot(int *coords, long double c_r, long double c_i, \
 t_mlx *fractol)
@@ -32,11 +41,10 @@ t_mlx *fractol)
 	}
 	if (i == fractol->iteration_max)
 		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			rgb2dec(i * 255 / (fractol->iteration_max * 0.75), 0,
-				i * 255 / (fractol->iteration_max * 0.75)));
+			get(i, fractol->iteration_max));
 	else
 		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			rgb2dec(255, i * 255 / fractol->iteration_max, 0));
+			get(i, fractol->iteration_max));
 }
 
 static void	calc_mandelbrot(long double *xy, long double image_x, \
