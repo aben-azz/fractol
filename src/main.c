@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 20:01:10 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:09:55 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,20 @@ t_point				put_pixel_img(t_mlx *fractol, t_point p, int clr)
 int				mouse_position(int x, int y, void *param)
 {
 	t_mlx		*mlx;
-
+	double dy = y;
+	double dx = x;
 	mlx = (t_mlx *)param;
 	if (x < WIN_W && x > 0 && mlx->is_var)
 	{
 		if (y < WIN_H && y > 0)
 		{
-			mlx->julia_var = (((float)x / 2 * (float)y / 2) / 1000);
+			mlx->julia_var2 = (((MAXJ - MINJ) / ((double)DRAW_W - 0.0)) * (dx - 0.0)) + MINJ;
+			mlx->julia_var= (((MAXJ - MINJ) / ((double)WIN_H - 0.0)) * (dy - 0.0)) + MINJ;
+			//mlx->julia_var = (((float)x / 2 * (float)y / 2) / 1000);
+			process(mlx);
 		}
 	}
+
 	return (0);
 }
 
@@ -100,6 +105,7 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->zoom = 300.0;
 	fractol->iteration_max = 50;
 	fractol->is_shift = 0;
+	fractol->is_var = 0;
 	fractol->is_pressed = 0;
 	fractol->fract[0] = &draw_julia;
 	fractol->fract[1] = &draw_mandelbrot;
@@ -112,6 +118,7 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->y.x = 5;
 	fractol->y.y = 5;
 	fractol->julia_var = 0.285;
+	fractol->julia_var2 = -0.7;
 }
 
 static t_mlx inline	*init(void)

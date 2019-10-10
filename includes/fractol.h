@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:57:19 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:04:30 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define DRAW_W  WIN_W - 500
 # define ORIGINALJULIAX -0.7f
 # define ORIGINALJULIAY 0.27015f
+# define MINJ -3.200
+# define MAXJ 3.200
 # define KPRESS 2
 # define KCLICK	3
 # define MCLICK	4
@@ -90,6 +92,7 @@ typedef struct	s_mlx
 	t_dpoint		x;
 	t_dpoint		y;
 	long double		julia_var;
+	long double		julia_var2;
 	int				multi;
 }				t_mlx;
 t_map			*create_map(int fd);

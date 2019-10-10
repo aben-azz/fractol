@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 08:58:10 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:42:41 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:09:20 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,26 @@ int		evt_live_mouse_move(int x, int y, t_mlx *m)
 {
 	(void)x;
 	(void)y;
+	//double dy = y;
+	// double dx = x;
 	if (m->is_pressed)
 	{
 		//process(m);
 	}
+/*
+** 	else if (m->is_var && x < DRAW_W && y < WIN_H)
+** 	{
+** 		y -= 500;
+** 		printf("julia var %Lf\n", m->julia_var);
+** 		//m->julia_var = -1.0 + ((double)y / WIN_H);// * 2.0;
+** 		//m->julia_var2 = (((MAXJ - MINJ) / ((double)DRAW_W - 0.0)) * (dx - 0.0)) + MINJ;
+** 		//m->julia_var= (((MAXJ - MINJ) / ((double)WIN_H - 0.0)) * (dy - 0.0)) +
+**< MINJ;
+** 		printf("julia var %Lf\n", m->julia_var);
+** 		process(m);
+** 	}
+*/
+
 	return (0);
 }
 
@@ -43,8 +59,8 @@ int		evt_live_key_pressed(int key, t_mlx *m)
 		m->iteration_max += 5;
 	else if (key == 78)
 		m->iteration_max -= 5;
-	//ft_printf("keycode: %d\n", key);
 	(void)m;
+
 	process(m);
 	return (0);
 }
@@ -55,7 +71,6 @@ int		evt_live_key_released(int key, t_mlx *m)
 		m->is_shift = 0;
 	else if (key == SP_KEY)
 		m->is_var = 0;
-	(void)m;
 	//process(m);
 	return (0);
 }
