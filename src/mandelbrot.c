@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 20:00:01 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 21:54:09 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "fractol.h"
 
 static void	print_mandelbrot(int *coords, long double c_r, long double c_i, \
 t_mlx *fractol)
@@ -22,13 +22,12 @@ t_mlx *fractol)
 
 	z_r = 0;
 	z_i = 0;
-	i = 0;
-	while (z_r * z_r + z_i * z_i < 4 && i < fractol->iteration_max)
+	i = -1;
+	while (++i < fractol->iteration_max && z_r * z_r + z_i * z_i < 1L << 16)
 	{
 		tmp = z_r;
 		z_r = z_r * z_r - z_i * z_i + c_r;
-		z_i = 2 * z_i * tmp + c_i;
-		++i;
+		z_i = (z_i + z_i) * tmp + c_i;
 	}
 	put_pixel_img(fractol, (t_point){coords[0], coords[1]},
 		get(i, fractol->iteration_max));

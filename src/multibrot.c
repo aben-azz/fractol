@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   multibrot.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:59:48 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 21:54:13 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "fractol.h"
 
 static void	print_multibrot(int *coords, long double c_r, long double c_i, \
 t_mlx *fractol)
 {
-	long double t;
-	long double zi;
-	long double zr;
+	double		zi;
+	double		zr;
 	long long	i;
 	int			n;
 
@@ -27,13 +26,12 @@ t_mlx *fractol)
 	i = 0;
 	while (zr * zr + zi * zi < 4 && i < fractol->iteration_max)
 	{
-		t = pow((zr * zr + zi * zi), (n / 2)) * cos(n * atan2(zi, zr)) + c_r;
+		zr = pow((zr * zr + zi * zi), (n / 2)) * cos(n * atan2(zi, zr)) + c_r;
 		zi = pow((zr * zr + zi * zi), (n / 2)) * sin(n * atan2(zi, zr)) + c_i;
-		zr = t;
 		++i;
 	}
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			get(i, fractol->iteration_max));
+	put_pixel_img(fractol, (t_point){coords[0], coords[1]},
+		get(i, fractol->iteration_max));
 }
 
 static void	calc_multibrot(long double *xy, long double image_x, \

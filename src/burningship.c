@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   burningship.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-azz <aben-azz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/03/17 19:16:35 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 21:54:28 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "fractol.h"
 
 static void	print_bship(int *coords, long double c_r, long double c_i, \
 t_mlx *fractol)
@@ -20,23 +20,18 @@ t_mlx *fractol)
 	long double z_r;
 	long long	i;
 
-	z_r = 0;
-	z_i = 0;
+	z_r = c_r;
+	z_i = c_i;
 	i = 0;
 	while (z_r * z_r + z_i * z_i < 4 && i < fractol->iteration_max)
 	{
-		tmp = z_r;
-		z_r = z_r * z_r - z_i * z_i + c_r;
-		z_i = 2 * z_i * tmp + c_i;
+		tmp = z_r * z_r - z_i * z_i - c_i;
+		z_r = fabsl(2 * z_r * z_i) - c_r;
+		z_i = fabsl(tmp);
 		++i;
 	}
-	if (i == fractol->iteration_max)
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			rgb2dec(i * 255 / (fractol->iteration_max * 0.75), 0,
-				i * 255 / (fractol->iteration_max * 0.75)));
-	else
-		put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-			rgb2dec(255, i * 255 / fractol->iteration_max, 0));
+	put_pixel_img(fractol, (t_point){coords[0], coords[1]},
+		get(i, fractol->iteration_max));
 }
 
 static void	calc_bship(long double *xy, long double image_x, \
@@ -49,10 +44,10 @@ long double image_y, t_mlx *fractol)
 
 	zoom[0] = image_x / (xy[0] - fractol->x.x);
 	zoom[1] = image_y / (xy[1] - fractol->x.y);
-	padding = WIN_W / (THREADS ? THREADS : 1);
+	padding = DRAW_W / (THREADS ? THREADS : 1);
 	start = padding * get_thread(pthread_self(), (pthread_t *)fractol->thread);
 	coords[0] = start - 1;
-	while (++coords[0] < image_x && coords[0] <= WIN_W && \
+	while (++coords[0] < image_x && coords[0] <= DRAW_W && \
 		coords[0] < start + padding)
 	{
 		coords[1] = -1;

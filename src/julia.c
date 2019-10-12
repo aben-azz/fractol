@@ -6,35 +6,34 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:02:29 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/10 19:03:09 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 21:54:00 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "fractol.h"
 
 static void	print_julia(t_point xy, t_mlx *fractol)
 {
-	long double tmp;
-	long double z_r;
-	long double z_i;
-	long double i;
+	double tmp;
+	double z_r;
+	double z_i;
+	double i;
 
 	z_r = xy.x / fractol->zoom + fractol->x.x;
 	z_i = xy.y / fractol->zoom + fractol->x.y;
-	i = 0;
-	while (i < fractol->iteration_max && z_r * z_r + z_i * z_i < 4)
+	i = -1;
+	while (++i < fractol->iteration_max && z_r * z_r + z_i * z_i < 4)
 	{
 		tmp = z_r;
 		z_r = z_r * z_r - z_i * z_i + fractol->julia_var;
 		z_i = (z_i + z_i) * tmp + fractol->julia_var2;
-		++i;
-		if (i == fractol->iteration_max)
-			put_pixel_img(fractol, (t_point){xy.x, xy.y},
-				get(i, fractol->iteration_max));
-		else
-			put_pixel_img(fractol, (t_point){xy.x, xy.y},
-				get(i, fractol->iteration_max));
 	}
+	if (i == fractol->iteration_max)
+		put_pixel_img(fractol, xy,
+			0);
+	else
+		put_pixel_img(fractol, xy,
+			get(i, fractol->iteration_max));
 }
 
 void		*draw_julia(void *data)

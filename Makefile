@@ -6,10 +6,9 @@
 #    By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/03 09:24:41 by aben-azz          #+#    #+#              #
-#    Updated: 2019/10/06 15:38:57 by aben-azz         ###   ########.fr        #
+#    Updated: 2019/10/12 22:14:31 by aben-azz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 _END			=	\x1b[0m
 _BOLD			=	\x1b[1m
@@ -31,59 +30,52 @@ _IBLUE			=	\x1b[44m
 _IPURPLE		=	\x1b[45m
 _ICYAN			=	\x1b[46m
 _IWHITE			=	\x1b[47m
-MSG				=	Compilation de Fract'ol
+_MAGENTA		=	\x1b[35m
+
+MSG				=	$(_BOLD)$(_BLUE)Compiling fractol:$(_END)
 .PHONY: all, $(NAME), clean, fclean, re
 
 NAME = fractol
-
 cc = gcc
-C_FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror  #-fsanitize=address
 FRAM = -L ./mlx -lmlx -framework OpenGL -framework AppKit
-
+SRC_NAME = main.c events.c julia.c mandelbrot.c multibrot.c multijulia.c \
+			burningship.c tricorn.c init.c draw.c
 OBJ_PATH = ./obj/
 LFT_PATH = ./libft/
-INC_PATH = ./
+LFT_NAME = libft.a
+INC_PATH = ./includes
 SRC_PATH = ./src/
-
-SRC_NAME = main.c events.c julia.c mandelbrot.c multibrot.c multijulia.c \
-			burningship.c tricorn.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
-
+INC_FPATH = ./includes/fractol.h
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 LONGEST			=	$(shell echo $(notdir $(SRC)) | tr " " "\n" | awk ' { if (\
 				length > x ) { x = length; y = $$0 } }END{ print y }' | wc -c)
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 INC = $(addprefix -I,$(INC_PATH))
 
-all: $(LIBFT_PATH)$(LIBFT_NAME) $(NAME)
+all: $(LFT_PATH)$(LFT_NAME) $(NAME)
 
-$(LIBFT_PATH)$(LIBFT_NAME):
-	@$(MAKE) -C $(LIBFT_PATH);
+$(LFT_PATH)$(LFT_NAME):
+	@$(MAKE) -C $(LFT_PATH);
 
 $(NAME): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ)
-		@echo
-		@make -C $(LFT_PATH)
-		@$(CC) -o $(NAME) $(FRAM) -L $(LFT_PATH) -lft $^ -o $@
-		@printf "$(_BOLD)$(_RED)Executable ./fractol pret \n$(_END)$(_CYAN)$(_END)"
+	@$(CC) -o $(NAME) $(FRAM) -L $(LFT_PATH) -lft $^ -o $@
+	@printf "\r\033[K$(_BOLD)$(_RED)./$(NAME) is ready for use\n$(_END)"
 
-
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c includes/fractol.h
-		@mkdir -p $(OBJ_PATH) 2> /dev/null || true
-		@$(CC) $(C_FLAGS) $(INC) -o $@ -c $<
-		@printf "$(_BOLD)$(_PURPLE)$(MSG)$(_END) $(_CYAN)%-$(LONGEST)s\
-		$(_END)" $(notdir $<)
-		@if test -s src/$*.c; then \
-		printf "$(_GREEN) [OK]\n$(_END)";\
-		else \
-		printf "$(_RED) [ERROR]\n$(_END)"; fi
-
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC_FPATH)
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) $(FLAGS) $(INC) -o $@ -c $<
+	@printf "\r\033[K$(MSG) $(_BOLD)$(_CYAN)%-$(LONGEST)s\$(_END)" $(notdir $<)
 
 clean:
-		@make -C $(LFT_PATH) clean
-		@rm -rf $(OBJ_PATH)
+	@make -C $(LFT_PATH) clean
+	@rm -rf $(OBJ_PATH)
+	@echo "$(_BOLD)$(_RED)Sucesfuly removed all objects from minishell$(_END)"
 
 fclean: clean
 		@make -C $(LFT_PATH) fclean
 		@rm -f $(NAME)
+		@echo "$(_BOLD)$(_RED)Sucessfuly removed ${NAME} from minishell$(_END)"
 
 re: fclean all
