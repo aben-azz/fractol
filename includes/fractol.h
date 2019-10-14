@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 21:53:36 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 22:39:49 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct	s_mlx
 	long double		julia_var;
 	long double		julia_var2;
 	int				multi;
+	int				color;
 }				t_mlx;
 
 /*
@@ -128,7 +129,7 @@ void			*draw_julia(void *data);
 unsigned int	get_thread(pthread_t id, pthread_t *threads);
 int				error(char err, t_mlx *fractol, char mode);
 int				select_fractal(int argc, char **argv, t_mlx *fractol);
-int				get(int n, int iter_max);
+int				get(int n, t_mlx *fractol);
 int				main(int ac, char **av);
 /*
 ** MANDELBROT.c

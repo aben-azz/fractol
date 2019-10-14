@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 22:11:01 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 22:49:13 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,21 @@ int				select_fractal(int argc, char **argv, t_mlx *fractol)
 	return (type);
 }
 
-int				get(int n, int iter_max)
+int				get(int n, t_mlx *fractol)
 {
-	double t;
+	double	o;
+	int		*tabe;
+	int		f;
+	int		s;
+	int		t;
 
-	t = (double)n / (double)iter_max;
-	return (rgb2dec((int)(9 * (1 - t) * t * t * t * 255),
-					(int)(15 * (1 - t) * (1 - t) * t * t * 255),
-					(int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255)));
+	o = (double)n / (double)fractol->iteration_max;
+	f = (15 * (1 - o) * (1 - o) * o * o * 255);
+	s = (8.5 * (1 - o) * (1 - o) * (1 - o) * o * 255);
+	t = (9 * (1 - o) * o * o * o * 255);
+	tabe = (int[][3]){ {f, s, t}, {f, t, s}, {s, f, t}, {s, t, f}, {t, f, f},
+				{t, f, f}, {f, f, f}, {f, f, f}, {t, t, t}}[fractol->color];
+	return (rgb2dec(tabe[0], tabe[1], tabe[2]));
 }
 
 int				main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 20:58:00 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 22:11:09 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 22:38:04 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->y.y = 5;
 	fractol->julia_var = 0.285;
 	fractol->julia_var2 = -0.7;
+	fractol->color = ft_rand(9);
 }
 
 t_mlx				*init(void)

@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:02:29 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 21:54:17 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 22:38:45 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	print_multijulia(long double c_r, t_point xy, t_mlx *fractol, int n)
 		++i;
 	}
 	put_pixel_img(fractol, (t_point){xy.x, xy.y},
-		get(i, fractol->iteration_max));
+		get(i, fractol));
 }
 
 void		*draw_multijulia(void *data)

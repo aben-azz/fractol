@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 21:54:20 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/12 22:38:54 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_mlx *fractol)
 		z_r = tmp;
 	}
 	put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-		get(i, fractol->iteration_max));
+		get(i, fractol));
 }
 
 static void	calc_tricorn(long double *xy, long double image_x, \
