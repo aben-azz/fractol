@@ -6,28 +6,11 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 20:57:18 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 21:54:32 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 08:37:23 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-static void		put_legend(t_mlx *fdf)
-{
-	int i;
-
-	i = 10;
-	mlx_string_put(fdf->mlx, fdf->win, DRAW_W + 10, i, WHITE,
-	"Fract'ol Legend: ");
-	mlx_string_put(fdf->mlx, fdf->win, DRAW_W + 10, i += 50, WHITE,
-	"scroll                 - Zoom");
-	mlx_string_put(fdf->mlx, fdf->win, DRAW_W + 10, i += 50, WHITE,
-	"+/-                    - Change max iterations");
-	mlx_string_put(fdf->mlx, fdf->win, DRAW_W + 10, i += 50, WHITE,
-	"Space                  - Toggle variation (Julia)");
-	mlx_string_put(fdf->mlx, fdf->win, DRAW_W + 10, i += 50, WHITE,
-	"arrow or A/D/W/S       - move");
-}
 
 void			draw_fractal(t_mlx *m)
 {
@@ -55,7 +38,7 @@ void			process(t_mlx *fractol)
 			&fractol->img->bpp, &fractol->img->sizeline, &fractol->img->endian);
 	fractol->img->bpp /= 8;
 	draw_fractal(fractol);
-	put_legend(fractol);
+	//put_legend(fractol);
 }
 
 t_point			put_pixel_img(t_mlx *fractol, t_point p, int clr)

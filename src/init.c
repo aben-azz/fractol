@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 20:58:00 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 22:38:04 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 08:37:08 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static inline void	init_variables(t_mlx *fractol)
 	fractol->fract[3] = &draw_bship;
 	fractol->fract[4] = &draw_multijulia;
 	fractol->fract[5] = &draw_multibrot;
-	fractol->x.x = -1.9999;
-	fractol->x.y = -1.9999;
+	fractol->x.x = -2.3;
+	fractol->x.y = -1.45;
 	fractol->y.x = 5;
 	fractol->y.y = 5;
 	fractol->julia_var = 0.285;

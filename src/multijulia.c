@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:02:29 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 22:38:45 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 09:04:33 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	print_multijulia(long double c_r, t_point xy, t_mlx *fractol, int n)
 		z_r = tmp;
 		++i;
 	}
-	put_pixel_img(fractol, (t_point){xy.x, xy.y},
-		get(i, fractol));
+	put_pixel_img(fractol, (t_point){xy.x, xy.y}, get(i, fractol));
 }
 
 void		*draw_multijulia(void *data)
@@ -46,10 +45,10 @@ void		*draw_multijulia(void *data)
 	fractol = (t_mlx *)data;
 	img = (t_dpoint){(fractol->y.x - fractol->x.x) * fractol->zoom,
 		(fractol->y.y - fractol->x.y) * fractol->zoom};
-	padding = DRAW_W / (THREADS ? THREADS : 1);
+	padding = WIN_W / (THREADS ? THREADS : 1);
 	start = padding * get_thread(pthread_self(), (pthread_t *)fractol->thread);
 	x.x = start - 1;
-	while (++x.x < img.x && x.x < DRAW_W && x.x < start + padding && (x.y = -1))
+	while (++x.x < img.x && x.x < WIN_W && x.x < start + padding && (x.y = -1))
 		while (++x.y < img.y && x.y < WIN_H)
 			print_multijulia(fractol->julia_var, x, fractol, fractol->multi);
 	pthread_exit(NULL);

@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 22:38:52 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 08:38:08 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ t_mlx *fractol)
 		z_i = fabsl(tmp);
 		++i;
 	}
-	put_pixel_img(fractol, (t_point){coords[0], coords[1]},
-		get(i, fractol));
+	put_pixel_img(fractol, (t_point){coords[0], coords[1]}, get(i, fractol));
 }
 
 static void	calc_bship(long double *xy, long double image_x, \
@@ -44,10 +43,10 @@ long double image_y, t_mlx *fractol)
 
 	zoom[0] = image_x / (xy[0] - fractol->x.x);
 	zoom[1] = image_y / (xy[1] - fractol->x.y);
-	padding = DRAW_W / (THREADS ? THREADS : 1);
+	padding = WIN_W / (THREADS ? THREADS : 1);
 	start = padding * get_thread(pthread_self(), (pthread_t *)fractol->thread);
 	coords[0] = start - 1;
-	while (++coords[0] < image_x && coords[0] <= DRAW_W && \
+	while (++coords[0] < image_x && coords[0] <= WIN_W && \
 		coords[0] < start + padding)
 	{
 		coords[1] = -1;

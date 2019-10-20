@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 22:49:13 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 09:06:02 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int				error(char err, t_mlx *fractol, char mode)
 	else
 	{
 		!mode ? ft_printf("Erreur:\tparametre incorrect") : 0;
-		ft_printf("\nListe des fractales:\n\t\tJulia\n\t\tMandelbrot\n \
-		Multibrot n \n\t\tMultijulia n \n\t\tTricorn \n\t\tBurningship\n");
+		ft_printf("\nListe des fractales:\n\t\tjulia\n\t\tmandelbrot\n \
+		multibrot n \n\t\tmultijulia n \n\t\ttricorn \n\t\tburningship\n");
 		!mode ? exit(1) : NULL;
 	}
 	(err == 2 || !err) ? exit(1) : NULL;
@@ -66,9 +66,9 @@ int				select_fractal(int argc, char **argv, t_mlx *fractol)
 		type = 5;
 	else
 		type = -1;
-	if ((type == 2 || type == 3) && argc > 2)
+	if ((type == 4 || type == 5) && argc > 2)
 		fractol->multi = ft_atoi(argv[2]);
-	else if ((type == 2 || type == 3) && argc == 2)
+	else if ((type == 4 || type == 5) && argc == 2)
 		fractol->multi = ft_rand(10);
 	~type || error(3, NULL, 0);
 	return (type);
@@ -103,6 +103,7 @@ int				main(int ac, char **av)
 		error(1, fractol, 0);
 	else
 		fractol->type = select_fractal(ac, av, fractol);
+	printf("Fractal: %d, multi: %d\n", fractol->type, fractol->multi);
 	process(fractol);
 	mlx_loop(fractol->mlx);
 	return (0);

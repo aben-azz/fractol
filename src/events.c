@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 08:58:10 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/12 21:53:48 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 08:31:09 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ int		evt_live_mouse_clicked(int keycode, int x, int y, t_mlx *m)
 {
 	int a;
 
-	a = WIN_W - DRAW_W;
+	a = WIN_W - WIN_W;
 	if ((keycode == 1 || keycode == 5) && y >= 0)
 	{
-		m->x.x += (((float)x + (-a + ((-a) / 2)) - (DRAW_W / 2)) / m->zoom);
+		m->x.x += (((float)x + (-a + ((-a) / 2)) - (WIN_W / 2)) / m->zoom);
 		m->x.y += (((float)y - (WIN_H / 2)) / m->zoom);
 		m->zoom *= 1.2;
 	}
 	else if ((keycode == 2 || keycode == 4) && y >= 0)
 	{
-		m->x.x += (((float)x + (-a + ((-a) / 2)) - (DRAW_W / 2)) / m->zoom);
+		m->x.x += (((float)x + (-a + ((-a) / 2)) - (WIN_W / 2)) / m->zoom);
 		m->x.y += (((float)y - (WIN_H / 2)) / m->zoom);
 		m->zoom *= 0.9;
 	}
@@ -79,7 +79,7 @@ int		mouse_position(int x, int y, void *param)
 	mlx = (t_mlx *)param;
 	if (x < WIN_W && x > 0 && mlx->is_var && y < WIN_H && y > 0)
 	{
-		mlx->julia_var2 = (((MAXJ - MINJ) / ((double)DRAW_W - 0.0)) *
+		mlx->julia_var2 = (((MAXJ - MINJ) / ((double)WIN_W - 0.0)) *
 															(dx - 0.0)) + MINJ;
 		mlx->julia_var = (((MAXJ - MINJ) / ((double)WIN_H - 0.0)) *
 															(dy - 0.0)) + MINJ;
