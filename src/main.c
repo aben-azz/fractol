@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 09:43:25 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 11:30:10 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int				main(int ac, char **av)
 		error(1, fractol, 0);
 	else
 		fractol->type = select_fractal(ac, av, fractol);
-	printf("Fractal: %d, multi: %d\n", fractol->type, fractol->multi);
 	process(fractol);
 	mlx_loop(fractol->mlx);
 	return (0);

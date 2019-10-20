@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 10:06:50 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 11:32:57 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,38 @@
 # define LEFTCLICK 2
 # define THREADS 45
 
-typedef struct	s_map
+typedef struct		s_map
 {
 	int				**board;
 	int				x;
 	int				y;
-}				t_map;
+}					t_map;
 
-typedef struct	s_image
+typedef struct		s_image
 {
-	void		*ptr;
-	char		*data;
-	int			bpp;
-	int			sizeline;
-	int			endian;
-}				t_image;
+	void			*ptr;
+	char			*data;
+	int				bpp;
+	int				sizeline;
+	int				endian;
+}					t_image;
 
-typedef struct	s_point
+typedef struct		s_point
 {
 	int				x;
 	int				y;
-}				t_point;
-typedef struct	s_dpoint
+}					t_point;
+typedef struct		s_dpoint
 {
 	long double		x;
 	long double		y;
-}				t_dpoint;
-typedef struct	s_points
+}					t_dpoint;
+typedef struct		s_points
 {
 	t_point			p1;
 	t_point			p2;
-}				t_points;
-typedef struct	s_mlx
+}					t_points;
+typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
@@ -94,56 +94,56 @@ typedef struct	s_mlx
 	long double		julia_var2;
 	int				multi;
 	int				color;
-}				t_mlx;
+}					t_mlx;
 
 /*
 ** BURNINGSHIP.C
 */
-void			*draw_bship(void *data);
+void				*draw_bship(void *data);
 /*
 ** DRAW.C
 */
 
-void			draw_fractal(t_mlx *m);
-void			process(t_mlx *fractol);
-t_point			put_pixel_img(t_mlx *fractol, t_point p, int clr);
+void				draw_fractal(t_mlx *m);
+void				process(t_mlx *fractol);
+t_point				put_pixel_img(t_mlx *fractol, t_point p, int clr);
 /*
 ** EVENTS.C
 */
-int				mouse_position(int x, int y, void *param);
-int				evt_live_key_pressed(int key, t_mlx *m);
-int				evt_live_key_released(int key, t_mlx *m);
-int				evt_live_mouse_clicked(int keycode, int x, int y, t_mlx *m);
+int					mouse_position(int x, int y, void *param);
+int					evt_live_key_pressed(int key, t_mlx *m);
+int					evt_live_key_released(int key, t_mlx *m);
+int					evt_live_mouse_clicked(int keycode, int x, int y, t_mlx *m);
 /*
 ** INIT.C
 */
-t_mlx			*init(void);
+t_mlx				*init(void);
 /*
 ** JULIA.C
 */
-void			*draw_julia(void *data);
+void				*draw_julia(void *data);
 /*
 ** MAIN.C
 */
-unsigned int	get_thread(pthread_t id, pthread_t *threads);
-int				error(char err, t_mlx *fractol, char mode);
-int				select_fractal(int argc, char **argv, t_mlx *fractol);
-int				get(int n, t_mlx *fractol);
-int				main(int ac, char **av);
+unsigned int		get_thread(pthread_t id, pthread_t *threads);
+int					error(char err, t_mlx *fractol, char mode);
+int					select_fractal(int argc, char **argv, t_mlx *fractol);
+int					get(int n, t_mlx *fractol);
+int					main(int ac, char **av);
 /*
 ** MANDELBROT.c
 */
-void			*draw_mandelbrot(void *data);
+void				*draw_mandelbrot(void *data);
 /*
 ** MULTIBROT.c
 */
-void			*draw_multibrot(void *data);
+void				*draw_multibrot(void *data);
 /*
 ** MULTIJULIA.c
 */
-void			*draw_multijulia(void *data);
+void				*draw_multijulia(void *data);
 /*
 ** TRICORN.C
 */
-void			*draw_tricorn(void *data);
+void				*draw_tricorn(void *data);
 #endif

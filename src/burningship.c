@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 19:37:14 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 08:38:08 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 11:29:17 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,8 @@ void		*draw_bship(void *data)
 	fractol = (t_mlx *)data;
 	xy[0] = 2;
 	xy[1] = 2;
-	calc_bship((long double *)xy, \
-	(xy[0] - fractol->x.x) * fractol->zoom, \
-	(xy[1] - fractol->x.y) * fractol->zoom, fractol);
+	calc_bship((long double *)xy, (xy[0] - fractol->x.x) * fractol->zoom,
+							(xy[1] - fractol->x.y) * fractol->zoom, fractol);
 	pthread_exit(NULL);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 08:58:10 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 08:31:09 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 11:29:33 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		evt_live_key_pressed(int key, t_mlx *m)
 		m->iteration_max += 5;
 	else if (key == 78)
 		m->iteration_max -= 5;
-	(void)m;
 	if (key != SP_KEY)
 		process(m);
 	return (0);
