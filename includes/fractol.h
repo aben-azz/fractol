@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 08:29:10 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 09:43:05 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define WHEELCLICK 3
 # define RIGHTCLICK 2
 # define LEFTCLICK 2
-# define THREADS 12
+# define THREADS 45
 
 typedef struct	s_map
 {

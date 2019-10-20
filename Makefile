@@ -6,7 +6,7 @@
 #    By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/03 09:24:41 by aben-azz          #+#    #+#              #
-#    Updated: 2019/10/12 22:14:31 by aben-azz         ###   ########.fr        #
+#    Updated: 2019/10/20 10:02:24 by aben-azz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ MSG				=	$(_BOLD)$(_BLUE)Compiling fractol:$(_END)
 
 NAME = fractol
 cc = gcc
-FLAGS = -Wall -Wextra -Werror  #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror #-g -v #-fsanitize=address
 FRAM = -L ./mlx -lmlx -framework OpenGL -framework AppKit
 SRC_NAME = main.c events.c julia.c mandelbrot.c multibrot.c multijulia.c \
 			burningship.c tricorn.c init.c draw.c
@@ -60,7 +60,7 @@ $(LFT_PATH)$(LFT_NAME):
 	@$(MAKE) -C $(LFT_PATH);
 
 $(NAME): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ)
-	@$(CC) -o $(NAME) $(FRAM) -L $(LFT_PATH) -lft $^ -o $@
+	@$(CC) $(FLAGS) -o $(NAME) $(FRAM) -L $(LFT_PATH) -lft $^ -o $@
 	@printf "\r\033[K$(_BOLD)$(_RED)./$(NAME) is ready for use\n$(_END)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC_FPATH)

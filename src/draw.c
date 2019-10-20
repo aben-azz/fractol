@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 20:57:18 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 08:37:23 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 10:02:16 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void			draw_fractal(t_mlx *m)
 void			process(t_mlx *fractol)
 {
 	mlx_clear_window(fractol->mlx, fractol->win);
-	(fractol->img) && mlx_destroy_image(fractol->mlx, fractol->img->ptr);
+	if (fractol->img)
+		mlx_destroy_image(fractol->mlx, fractol->img->ptr);
+	if (fractol->img)
+		free(fractol->img);
 	if (!(fractol->img = (t_image *)malloc(sizeof(t_image))))
 		exit(1);
 	fractol->img->ptr = mlx_new_image(fractol->mlx, WIN_W, WIN_H);
@@ -38,7 +41,6 @@ void			process(t_mlx *fractol)
 			&fractol->img->bpp, &fractol->img->sizeline, &fractol->img->endian);
 	fractol->img->bpp /= 8;
 	draw_fractal(fractol);
-	//put_legend(fractol);
 }
 
 t_point			put_pixel_img(t_mlx *fractol, t_point p, int clr)

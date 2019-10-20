@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 08:51:22 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 09:06:02 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 09:43:25 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int				error(char err, t_mlx *fractol, char mode)
 	if (!err)
 		ft_printf("Erreur:\terreur d'allocation\n\t Relancez le programme\n");
 	else if (err == 2)
-		ft_printf("Erreur:\tNombre de thread nul ou negatif\n\t\
-		editez la macro THREADS sur includes/fractol.h (ligne.18)\n");
+		ft_printf("Erreur:\tNombre de thread nul ou negatif\n\
+		editez la macro THREADS sur includes/fractol.h (ligne.45)\n");
 	else if (err == 1)
 	{
 		fractol->type = ft_rand(4);
