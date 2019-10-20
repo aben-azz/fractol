@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 18:41:05 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 09:28:51 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 10:07:31 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 long long	ft_rand(long long n)
 {
-	char *string;
-	long long a;
+	char		*string;
+	long long	a;
 
 	if (!(string = malloc(0)))
 		return (0);

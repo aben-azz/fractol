@@ -6,7 +6,7 @@
 /*   By: aben-azz <aben-azz@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 09:25:27 by aben-azz          #+#    #+#             */
-/*   Updated: 2019/10/20 09:43:05 by aben-azz         ###   ########.fr       */
+/*   Updated: 2019/10/20 10:06:50 by aben-azz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <pthread.h>
 # define WIN_W 1000
 # define WIN_H  800
-//# define DRAW_W  WIN_W - 500
 # define ORIGINALJULIAX -0.7f
 # define ORIGINALJULIAY 0.27015f
 # define MINJ -3.200
